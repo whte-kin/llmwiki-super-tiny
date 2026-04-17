@@ -1,10 +1,12 @@
 # LLMWiki Super Tiny
 
-This is a super-tiny knowledge base starter pack made of just five Markdown files.
+This is a super-tiny knowledge base starter pack made of five prompt Markdown files (in `prompt/`), plus this README as an operator guide.
 
 It is not a program. Nothing needs to be run. There is no code, no backend, and no database.
 
-The idea is simple: drop these five files into a new project, hand them to Cursor / Codex / Claude Code, and let the agent initialize and maintain a local wiki for you.
+The idea is simple: create a new project, drop the `prompt/` folder into it, then hand the prompt files to Cursor / Codex / Claude Code to initialize and maintain a local wiki for you.
+
+Do not copy this `README.md` into the new project. It is only a guide for how to use the prompt files.
 
 This project was inspired by Karpathy's llmwiki idea.
 What you have here is a much lighter, smaller, and more immediately usable version of that general direction.
@@ -19,19 +21,20 @@ Recommended project names:
 
 ## Files
 
-This starter pack contains exactly these five files:
+This starter pack contains exactly these six files (five prompts in `prompt/` + this README):
 
-1. `01_INIT_KB_PROJECT.md`
-2. `02_FORMAT_RULES.md`
-3. `03_REPO_PROFILE_SETUP_PROMPT.md`
-4. `04_QA_TO_OPS_PROMPT.md`
-5. `README.md`
+1. `prompt/01_INIT_KB_PROJECT.md`
+2. `prompt/02_FORMAT_RULES.md`
+3. `prompt/03_REPO_PROFILE_SETUP_PROMPT.md`
+4. `prompt/04_RAW_TO_PAGE_PROMPT.md`
+5. `prompt/05_QA_TO_OPS_PROMPT.md`
+6. `README.md`
 
 ---
 
 ## What Each File Does
 
-### `01_INIT_KB_PROJECT.md`
+### `prompt/01_INIT_KB_PROJECT.md`
 
 Bootstraps a new knowledge base project.
 
@@ -43,7 +46,7 @@ Give it to an agent when you want the agent to create:
 
 This file is the project scaffold instruction.
 
-### `02_FORMAT_RULES.md`
+### `prompt/02_FORMAT_RULES.md`
 
 Defines the formatting rules for the knowledge base.
 
@@ -55,7 +58,7 @@ It covers:
 
 This file is the formatting and structure guide.
 
-### `03_REPO_PROFILE_SETUP_PROMPT.md`
+### `prompt/03_REPO_PROFILE_SETUP_PROMPT.md`
 
 Used to set up `repo_profile.md` through conversation.
 
@@ -68,7 +71,7 @@ Give it to an agent when you want the agent to:
 
 This file is the repository-profile setup prompt.
 
-### `04_QA_TO_OPS_PROMPT.md`
+### `prompt/05_QA_TO_OPS_PROMPT.md`
 
 Used after an important conversation ends.
 
@@ -85,19 +88,52 @@ Give it to an agent when you want the agent to:
 
 This file is the conversation-to-ops workflow prompt.
 
+### `prompt/04_RAW_TO_PAGE_PROMPT.md`
+
+Used when you have a new source document in `raw/` and want to turn it into a wiki-shaped page under `pages/`, or merge it into an existing page.
+
+Give it to an agent when you want the agent to:
+
+- read `repo_profile.md` and `prompt/02_FORMAT_RULES.md`
+- use `index.md` to identify likely related pages first (progressive lookup)
+- update or create `pages/*.md` based on the source content (do not preserve the source outline as the wiki outline)
+- keep `index.md` in sync whenever pages are created, retitled, or materially restructured
+
+This file is the raw-to-pages workflow prompt.
+
 ---
 
 ## Recommended Order
 
-Use the files in this order:
-
-1. Put these five files into a new directory.
-2. Use `01_INIT_KB_PROJECT.md` to create the knowledge base folders and starter files.
-3. Use `02_FORMAT_RULES.md` to enforce consistent structure.
-4. Use `03_REPO_PROFILE_SETUP_PROMPT.md` to configure `repo_profile.md`.
-5. After meaningful conversations, use `04_QA_TO_OPS_PROMPT.md` to capture them into `ops/`.
+For a new repo, the typical setup order is: `prompt/01_INIT_KB_PROJECT.md` → `prompt/02_FORMAT_RULES.md` → `prompt/03_REPO_PROFILE_SETUP_PROMPT.md`, then use the workflow prompts as needed (see the next section).
 
 ---
+
+## How to Use These Prompts (in a knowledge-base repo)
+
+This section is a practical “how to run the workflow” guide.
+
+You typically do one of the following:
+
+1. **Repo setup / reset**
+   - Attach `prompt/01_INIT_KB_PROJECT.md` to an agent to scaffold the project structure and starter files.
+2. **(Re)configure repository scope**
+   - Attach `prompt/03_REPO_PROFILE_SETUP_PROMPT.md` and let the agent ask a few questions, then update `repo_profile.md`.
+3. **Turn a raw source into a wiki page (or merge into an existing page)**
+   - Attach the raw source file under `raw/` and attach `prompt/04_RAW_TO_PAGE_PROMPT.md`.
+   - The agent should:
+     - read `index.md` first to find likely related pages
+     - only then open the relevant `pages/*.md`
+     - update or create `pages/*.md`
+     - update `index.md` whenever a page is created, retitled, or materially restructured
+4. **Capture an important conversation into `ops/`**
+   - At the end of a conversation, attach `prompt/05_QA_TO_OPS_PROMPT.md`.
+   - The agent should write an `ops/` note and propose page changes, then wait for explicit approval before touching `pages/`.
+
+Notes:
+
+- This README is the place to document “how to use the prompts”. Avoid putting user-facing usage instructions inside the prompts themselves, as that can interfere with model behavior.
+- Always keep `index.md` synced with `pages/` (new page, retitle, or major structural change).
 
 ## What This Pack Is For
 
@@ -139,4 +175,4 @@ Those are intentionally out of scope for this super-tiny version.
 
 ## In One Sentence
 
-**LLMWiki Super Tiny** is a five-file starter pack for building and maintaining a local wiki with an agent, without writing code or running a system.
+**LLMWiki Super Tiny** is a five-prompt starter pack (plus a README guide) for building and maintaining a local wiki with an agent, without writing code or running a system.

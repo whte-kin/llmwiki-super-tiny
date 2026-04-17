@@ -162,6 +162,13 @@ Add sections as needed, for example:
 - Pages may add or remove sections depending on the topic.
 - Not all pages need the same set of sections.
 
+### Content Organization Rules
+
+- Treat the source document as material, not as the required outline: do not preserve the source's sequential structure (for example, `## 1...## 2...`) as the main wiki page structure.
+- Reorganize into wiki-like themes using meaningful headings. If the page has substantial content, it must include at least one additional `## <Theme>` section beyond `## Overview` / `## Related Pages` / `## Sources`.
+- The page `# <Page Title>` must be the topic name. Avoid titles like `学习笔记` / `总结` / `讲义` as the H1 prefix unless that is the actual topic name.
+- When `## Related Pages` has no known links, leave the section empty (do not add placeholder bullets like a lone `-`).
+
 ### Writing Rules
 
 - Prioritize clarity over style

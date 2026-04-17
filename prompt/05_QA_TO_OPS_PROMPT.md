@@ -264,7 +264,7 @@ Only after explicit approval may you:
 Once the user approves the current proposal, move to execution and do the following:
 
 1. update or create the pages listed in the approved proposal
-2. follow the rules in `02_FORMAT_RULES.md`
+2. follow the rules in `prompt/02_FORMAT_RULES.md`
 3. update `index.md` accordingly
 4. return a concise summary of the actual changes made
 
