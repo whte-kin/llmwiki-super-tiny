@@ -11,12 +11,6 @@ Do not copy this `README.md` into the new project. It is only a guide for how to
 This project was inspired by Karpathy's llmwiki idea.
 What you have here is a much lighter, smaller, and more immediately usable version of that general direction.
 
-Recommended project names:
-
-- `LLMWiki Super Tiny`
-- `Super-Tiny LLMWiki`
-- `llmwiki-super-tiny`
-
 ---
 
 ## Files
@@ -71,6 +65,19 @@ Give it to an agent when you want the agent to:
 
 This file is the repository-profile setup prompt.
 
+### `prompt/04_RAW_TO_PAGE_PROMPT.md`
+
+Used when you have a new source document in `raw/` and want to turn it into a wiki-shaped page under `pages/`, or merge it into an existing page.
+
+Give it to an agent when you want the agent to:
+
+- read `repo_profile.md` and `prompt/02_FORMAT_RULES.md`
+- use `index.md` to identify likely related pages first (progressive lookup)
+- update or create `pages/*.md` based on the source content (do not preserve the source outline as the wiki outline)
+- keep `index.md` in sync whenever pages are created, retitled, or materially restructured
+
+This file is the raw-to-pages workflow prompt.
+
 ### `prompt/05_QA_TO_OPS_PROMPT.md`
 
 Used after an important conversation ends.
@@ -87,19 +94,6 @@ Give it to an agent when you want the agent to:
 - only then update `pages/` and `index.md`
 
 This file is the conversation-to-ops workflow prompt.
-
-### `prompt/04_RAW_TO_PAGE_PROMPT.md`
-
-Used when you have a new source document in `raw/` and want to turn it into a wiki-shaped page under `pages/`, or merge it into an existing page.
-
-Give it to an agent when you want the agent to:
-
-- read `repo_profile.md` and `prompt/02_FORMAT_RULES.md`
-- use `index.md` to identify likely related pages first (progressive lookup)
-- update or create `pages/*.md` based on the source content (do not preserve the source outline as the wiki outline)
-- keep `index.md` in sync whenever pages are created, retitled, or materially restructured
-
-This file is the raw-to-pages workflow prompt.
 
 ---
 
